@@ -1,8 +1,8 @@
 from celery import shared_task
 from django.conf import settings
 
-from apps.webhooks.models import Event, WebhookEndpoint
-from apps.webhooks.services import send_webhook
+from webhooks.models import Event, WebhookEndpoint
+from webhooks.services import send_webhook
 
 
 @shared_task(bind=True, max_retries=settings.WEBHOOK_MAX_RETRIES)

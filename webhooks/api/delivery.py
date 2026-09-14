@@ -1,8 +1,8 @@
 from ninja import Query, Router
 from ninja.pagination import paginate
 
-from apps.webhooks.models import DeliveryAttempt
-from apps.webhooks.schemas.delivery import DeliveryAttemptOut, DeliveryFilters
+from webhooks.models import DeliveryAttempt
+from webhooks.schemas.delivery import DeliveryAttemptOut, DeliveryFilters
 
 router = Router()
 

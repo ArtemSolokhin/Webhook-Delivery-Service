@@ -4,7 +4,7 @@ import time
 import requests
 from django.conf import settings
 
-from apps.webhooks.models import DeliveryAttempt, Event, WebhookEndpoint
+from webhooks.models import DeliveryAttempt, Event, WebhookEndpoint
 
 
 def send_webhook(endpoint: WebhookEndpoint, event: Event, attempt_number: int) -> DeliveryAttempt:
