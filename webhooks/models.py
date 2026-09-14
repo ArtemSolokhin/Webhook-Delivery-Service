@@ -1,5 +1,7 @@
 from django.db import models
 
+from webhooks.enums import DeliveryStatus
+
 
 class WebhookEndpoint(models.Model):
     """A subscriber URL that events are delivered to."""
@@ -33,17 +35,13 @@ class Event(models.Model):
 class DeliveryAttempt(models.Model):
     """The result of one attempt to deliver an Event to a WebhookEndpoint."""
 
-    class Status(models.TextChoices):
-        SUCCESS = "success", "Success"
-        FAILED = "failed", "Failed"
-
     event = models.ForeignKey(
         Event, related_name="delivery_attempts", on_delete=models.CASCADE
     )
     endpoint = models.ForeignKey(
         WebhookEndpoint, related_name="delivery_attempts", on_delete=models.CASCADE
     )
-    status = models.CharField(max_length=10, choices=Status.choices)
+    status = models.CharField(max_length=10, choices=DeliveryStatus.choices)
     http_status = models.PositiveSmallIntegerField(null=True, blank=True)
     response_time = models.FloatField(
         null=True, blank=True, help_text="Seconds elapsed waiting for a response."

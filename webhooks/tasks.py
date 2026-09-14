@@ -1,6 +1,7 @@
 from celery import shared_task
 from django.conf import settings
 
+from webhooks.enums import DeliveryStatus
 from webhooks.models import Event, WebhookEndpoint
 from webhooks.services import send_webhook
 
@@ -18,7 +19,7 @@ def deliver_webhook(self, event_id: str, endpoint_id: int) -> None:
     attempt_number = self.request.retries + 1
     attempt = send_webhook(endpoint, event, attempt_number)
 
-    if attempt.status == attempt.Status.FAILED and self.request.retries < self.max_retries:
+    if attempt.status == DeliveryStatus.FAILED and self.request.retries < self.max_retries:
         delays = settings.WEBHOOK_RETRY_DELAYS_SECONDS
         countdown = delays[min(self.request.retries, len(delays) - 1)]
         raise self.retry(countdown=countdown)
