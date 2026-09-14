@@ -18,11 +18,10 @@ def create_event(request, payload: EventIn):
         event_id=payload.event_id,
         defaults={"event_type": payload.event_type, "payload": payload.payload},
     )
-    # Not a real model field: attached only so the schema can report duplicates.
-    event.duplicate = not created
 
     if not created:
-        # Same event_id seen before: idempotent no-op, nothing re-delivered.
+        # Same event_id seen before: idempotent no-op, nothing re-delivered. The
+        # 200 status code (vs. 201 for a new event) is what tells the caller this.
         return 200, event
 
     endpoint_ids = list(

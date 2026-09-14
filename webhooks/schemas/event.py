@@ -15,4 +15,3 @@ class EventOut(Schema):
     event_type: str
     payload: dict
     created_at: datetime
-    duplicate: bool = False
