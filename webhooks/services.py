@@ -1,4 +1,4 @@
-"""Delivery logic: send one HTTP request for one attempt and record it. Kept separate from the Celery task so it can be unit tested directly."""
+"""Delivery logic: send one HTTP request and record the outcome; kept separate from the task for easy unit testing."""
 
 import time
 
@@ -9,9 +9,7 @@ from webhooks.enums import DeliveryStatus
 from webhooks.models import DeliveryAttempt, Event, WebhookEndpoint
 
 
-def send_webhook(
-    endpoint: WebhookEndpoint, event: Event, attempt_number: int
-) -> DeliveryAttempt:
+def send_webhook(endpoint: WebhookEndpoint, event: Event, attempt_number: int) -> DeliveryAttempt:
     """POST the event once and record the result; never raises, failures are recorded as a failed attempt."""
     body = {
         "event_id": event.event_id,

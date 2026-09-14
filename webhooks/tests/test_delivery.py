@@ -10,9 +10,7 @@ from webhooks.services import send_webhook
 class SuccessfulDeliveryTests(TestCase):
     def setUp(self):
         self.endpoint = WebhookEndpoint.objects.create(url="http://example.com/hook")
-        self.event = Event.objects.create(
-            event_id="evt-success", event_type="order.created", payload={"order_id": 1}
-        )
+        self.event = Event.objects.create(event_id="evt-success", event_type="order.created", payload={"order_id": 1})
 
     @mock.patch("webhooks.services.requests.post")
     def test_successful_delivery_is_recorded(self, mock_post):

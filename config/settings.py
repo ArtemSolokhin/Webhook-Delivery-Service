@@ -5,9 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "insecure-dev-key-change-me")
 DEBUG = os.environ.get("DJANGO_DEBUG", "true").lower() == "true"
-ALLOWED_HOSTS = [
-    h.strip() for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
-]
+ALLOWED_HOSTS = [h.strip() for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")]
 
 # This is a small, intentionally scoped portfolio project: no auth, no
 # frontend, so INSTALLED_APPS / MIDDLEWARE are kept to the minimum Django

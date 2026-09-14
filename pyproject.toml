@@ -23,17 +23,3 @@ build-backend = "setuptools.build_meta"
 # This is a Django project, not an installable library - pyproject.toml
 # is used purely as the dependency manifest, so no packages to build.
 packages = []
-
-[tool.ruff]
-target-version = "py312"
-extend-exclude = ["*/migrations/*"]
-
-[tool.ruff.lint]
-ignore = [
-    # Django's Meta.ordering/indexes and Django Ninja's Schema field defaults
-    # are mutated-copy-safe by construction; not the footgun this rule targets.
-    "RUF012",
-    # Django Ninja's `= Query(...)` default is the framework's own DI pattern,
-    # not a shared mutable default.
-    "B008",
-]

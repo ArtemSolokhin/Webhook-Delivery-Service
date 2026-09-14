@@ -1,0 +1,65 @@
+target-version = "py312"
+line-length = 120
+
+[lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "T20", # flake8-print
+    "DJ",  # flake8-django
+    "ERA", # flake8-eradicate
+]
+
+ignore = [
+    "B007",    # Loop control variable not used within loop body
+    "B008",    # Do not perform function call in argument defaults
+    "B018",    # Found useless expression
+    "B023",    # Function definition does not bind loop variable
+    "B904",    # Within an except clause, raise exceptions with from err or None
+    "C403",    # Unnecessary list comprehension - rewrite as set comprehension
+    "C405",    # Unnecessary list literal - rewrite as set literal
+    "C414",    # Unnecessary list call within sorted()
+    "C416",    # Unnecessary list comprehension - rewrite as dict comprehension
+    "C419",    # Unnecessary list comprehension - rewrite as literal
+    "DJ001",   # Avoid using null=True on string-based fields
+    "DJ007",   # Do not use __all__ with ModelForm
+    "DJ008",   # Model does not define __str__ method
+    "DJ012",   # Order of model inner classes, methods, and fields
+    "ERA001",  # Found commented-out code
+    "SIM102",  # Use a single if statement instead of nested if statements
+    "SIM105",  # Use contextlib.suppress() instead of try-except-pass
+    "SIM108",  # Use ternary operator instead of if-else-block
+    "SIM110",  # Use all() instead of any() with not
+    "SIM115",  # Use context handler for opening files
+    "SIM117",  # Use a single with statement with multiple contexts
+    "SIM210",  # Use bool() instead of unnecessary if-else
+]
+
+exclude = [
+    "**/migrations/**",
+    "*/migrations/*",
+    "migrations/",
+    "static",
+    "shared/data",
+    "**/commands/**",
+    "test_settings.py",
+]
+
+[format]
+quote-style = "double"
+line-ending = "auto"
+indent-style = "space"
+skip-magic-trailing-comma = false
+exclude = [
+    "**/migrations/**",
+    "*/migrations/*",
+    "migrations/",
+    "static",
+    "shared/data",
+    "**/commands/**",
+    "test_settings.py",
+]

@@ -8,9 +8,7 @@ router = Router()
 
 @router.post("/", response={201: EndpointOut}, summary="Register a webhook endpoint")
 def create_endpoint(request, payload: EndpointIn):
-    endpoint = WebhookEndpoint.objects.create(
-        url=str(payload.url), is_active=payload.is_active
-    )
+    endpoint = WebhookEndpoint.objects.create(url=str(payload.url), is_active=payload.is_active)
     return 201, endpoint
 
 
