@@ -1,7 +1,7 @@
 from ninja import Router
 
-from ..models import DeliveryAttempt
-from ..schemas.delivery import DeliveryAttemptOut
+from apps.webhooks.models import DeliveryAttempt
+from apps.webhooks.schemas.delivery import DeliveryAttemptOut
 
 router = Router()
 

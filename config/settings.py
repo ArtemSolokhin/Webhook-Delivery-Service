@@ -12,7 +12,7 @@ ALLOWED_HOSTS = [h.strip() for h in os.environ.get("DJANGO_ALLOWED_HOSTS", "*").
 # needs to run migrations and serve the Django Ninja API.
 INSTALLED_APPS = [
     "django.contrib.contenttypes",
-    "webhooks",
+    "apps.webhooks",
 ]
 
 MIDDLEWARE = [

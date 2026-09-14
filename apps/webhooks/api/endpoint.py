@@ -1,7 +1,7 @@
 from ninja import Router
 
-from ..models import WebhookEndpoint
-from ..schemas.endpoint import EndpointIn, EndpointOut
+from apps.webhooks.models import WebhookEndpoint
+from apps.webhooks.schemas.endpoint import EndpointIn, EndpointOut
 
 router = Router()
 

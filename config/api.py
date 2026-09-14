@@ -1,8 +1,8 @@
 from ninja import NinjaAPI
 
-from webhooks.api.delivery import router as delivery_router
-from webhooks.api.endpoint import router as endpoint_router
-from webhooks.api.event import router as event_router
+from apps.webhooks.api.delivery import router as delivery_router
+from apps.webhooks.api.endpoint import router as endpoint_router
+from apps.webhooks.api.event import router as event_router
 
 api = NinjaAPI(
     title="Webhook Delivery Service",

@@ -1,9 +1,9 @@
 from django.db import transaction
 from ninja import Router
 
-from ..models import Event, WebhookEndpoint
-from ..schemas.event import EventIn, EventOut
-from ..tasks import deliver_webhook
+from apps.webhooks.models import Event, WebhookEndpoint
+from apps.webhooks.schemas.event import EventIn, EventOut
+from apps.webhooks.tasks import deliver_webhook
 
 router = Router()
 
