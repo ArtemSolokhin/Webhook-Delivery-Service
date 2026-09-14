@@ -1,4 +1,5 @@
-"""Delivery logic: send one HTTP request for one attempt and record it. Kept separate from the Celery task so it can be unit tested directly."""
+"""Delivery logic: send one HTTP request and record the outcome; kept separate from the task for easy unit testing."""
+
 import time
 
 import requests

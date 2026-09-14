@@ -23,9 +23,7 @@ class RetryBehaviorTests(TestCase):
         deliver_webhook.apply(args=[self.event.event_id, self.endpoint.id])
 
         attempts = list(
-            DeliveryAttempt.objects.filter(event=self.event, endpoint=self.endpoint).order_by(
-                "attempt_number"
-            )
+            DeliveryAttempt.objects.filter(event=self.event, endpoint=self.endpoint).order_by("attempt_number")
         )
         # 1 initial attempt + 3 retries = 4 attempts total, all failed.
         self.assertEqual([a.attempt_number for a in attempts], [1, 2, 3, 4])
@@ -42,9 +40,7 @@ class RetryBehaviorTests(TestCase):
         deliver_webhook.apply(args=[self.event.event_id, self.endpoint.id])
 
         attempts = list(
-            DeliveryAttempt.objects.filter(event=self.event, endpoint=self.endpoint).order_by(
-                "attempt_number"
-            )
+            DeliveryAttempt.objects.filter(event=self.event, endpoint=self.endpoint).order_by("attempt_number")
         )
         self.assertEqual([a.attempt_number for a in attempts], [1, 2])
         self.assertEqual(attempts[0].status, DeliveryStatus.FAILED)
