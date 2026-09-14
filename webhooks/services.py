@@ -4,7 +4,8 @@ import time
 import requests
 from django.conf import settings
 
-from .models import DeliveryAttempt, Event, WebhookEndpoint
+from webhooks.enums import DeliveryStatus
+from webhooks.models import DeliveryAttempt, Event, WebhookEndpoint
 
 
 def send_webhook(endpoint: WebhookEndpoint, event: Event, attempt_number: int) -> DeliveryAttempt:
@@ -27,7 +28,7 @@ def send_webhook(endpoint: WebhookEndpoint, event: Event, attempt_number: int) -
         return DeliveryAttempt.objects.create(
             event=event,
             endpoint=endpoint,
-            status=DeliveryAttempt.Status.FAILED,
+            status=DeliveryStatus.FAILED,
             http_status=None,
             response_time=elapsed,
             attempt_number=attempt_number,
@@ -39,7 +40,7 @@ def send_webhook(endpoint: WebhookEndpoint, event: Event, attempt_number: int) -
     return DeliveryAttempt.objects.create(
         event=event,
         endpoint=endpoint,
-        status=DeliveryAttempt.Status.SUCCESS if success else DeliveryAttempt.Status.FAILED,
+        status=DeliveryStatus.SUCCESS if success else DeliveryStatus.FAILED,
         http_status=response.status_code,
         response_time=elapsed,
         attempt_number=attempt_number,
