@@ -18,10 +18,12 @@ def create_event(request, payload: EventIn):
         event_id=payload.event_id,
         defaults={"event_type": payload.event_type, "payload": payload.payload},
     )
+    # Not a real model field: attached only so the schema can report duplicates.
+    event.duplicate = not created
 
     if not created:
         # Same event_id seen before: idempotent no-op, nothing re-delivered.
-        return 200, EventOut(duplicate=True, **_event_dict(event))
+        return 200, event
 
     endpoint_ids = list(
         WebhookEndpoint.objects.filter(is_active=True).values_list("id", flat=True)
@@ -32,14 +34,4 @@ def create_event(request, payload: EventIn):
             lambda eid=endpoint_id, ev_id=event.event_id: deliver_webhook.delay(ev_id, eid)
         )
 
-    return 201, EventOut(duplicate=False, **_event_dict(event))
-
-
-def _event_dict(event: Event) -> dict:
-    return {
-        "id": event.id,
-        "event_id": event.event_id,
-        "event_type": event.event_type,
-        "payload": event.payload,
-        "created_at": event.created_at,
-    }
+    return 201, event
