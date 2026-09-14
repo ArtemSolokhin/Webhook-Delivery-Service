@@ -30,7 +30,9 @@ def create_event(request, payload: EventIn):
     for endpoint_id in endpoint_ids:
         # Only enqueue once the Event row is actually committed, so the worker can find it.
         transaction.on_commit(
-            lambda eid=endpoint_id, ev_id=event.event_id: deliver_webhook.delay(ev_id, eid)
+            lambda eid=endpoint_id, ev_id=event.event_id: deliver_webhook.delay(
+                ev_id, eid
+            )
         )
 
     return 201, event
