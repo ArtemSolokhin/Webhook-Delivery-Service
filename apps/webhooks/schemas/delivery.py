@@ -1,6 +1,12 @@
 from datetime import datetime
 
-from ninja import Schema
+from ninja import Field, FilterSchema, Schema
+
+
+class DeliveryFilters(FilterSchema):
+    event_id: str | None = Field(None, json_schema_extra={"q": "event__event_id"})
+    endpoint_id: int | None = None
+    status: str | None = None
 
 
 class DeliveryAttemptOut(Schema):
