@@ -1,34 +1,6 @@
 from datetime import datetime
 
 from ninja import Schema
-from pydantic import AnyHttpUrl
-
-
-class EndpointIn(Schema):
-    url: AnyHttpUrl
-    is_active: bool = True
-
-
-class EndpointOut(Schema):
-    id: int
-    url: str
-    is_active: bool
-    created_at: datetime
-
-
-class EventIn(Schema):
-    event_id: str
-    event_type: str
-    payload: dict = {}
-
-
-class EventOut(Schema):
-    id: int
-    event_id: str
-    event_type: str
-    payload: dict
-    created_at: datetime
-    duplicate: bool = False
 
 
 class DeliveryAttemptOut(Schema):
