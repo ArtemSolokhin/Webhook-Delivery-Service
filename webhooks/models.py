@@ -16,12 +16,7 @@ class WebhookEndpoint(models.Model):
 
 
 class Event(models.Model):
-    """An event to fan out to all active webhook endpoints.
-
-    `event_id` is the idempotency key: it is provided by the caller (e.g.
-    the id of the upstream event) and is unique, so re-submitting the same
-    event never creates duplicate events or duplicate deliveries.
-    """
+    """An event to fan out to active endpoints; event_id is the idempotency key."""
 
     event_id = models.CharField(max_length=255, unique=True)
     event_type = models.CharField(max_length=255)
