@@ -71,3 +71,8 @@ WEBHOOK_TIMEOUT_SECONDS = float(os.environ.get("WEBHOOK_TIMEOUT_SECONDS", "5"))
 WEBHOOK_MAX_RETRIES = int(os.environ.get("WEBHOOK_MAX_RETRIES", "3"))
 # Delay (seconds) before retry #1, #2, #3, applied via Celery's countdown.
 WEBHOOK_RETRY_DELAYS_SECONDS = [10, 60, 300]
+
+# --- API pagination ------------------------------------------------------
+# Delivery history is the only paginated endpoint; defaults/max apply globally.
+NINJA_PAGINATION_PER_PAGE = 50
+NINJA_PAGINATION_MAX_LIMIT = 200
