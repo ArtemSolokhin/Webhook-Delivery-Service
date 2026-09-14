@@ -1,8 +1,4 @@
-"""Delivery logic: send one HTTP request for one attempt and record it.
-
-Kept separate from the Celery task so it can be unit tested directly,
-without going through the task/retry machinery.
-"""
+"""Delivery logic: send one HTTP request for one attempt and record it. Kept separate from the Celery task so it can be unit tested directly."""
 import time
 
 import requests
@@ -12,11 +8,7 @@ from .models import DeliveryAttempt, Event, WebhookEndpoint
 
 
 def send_webhook(endpoint: WebhookEndpoint, event: Event, attempt_number: int) -> DeliveryAttempt:
-    """POST the event to the endpoint once and record the result.
-
-    Returns the created DeliveryAttempt. Never raises for HTTP-level or
-    network-level failures - those are recorded as a failed attempt.
-    """
+    """POST the event once and record the result; never raises, failures are recorded as a failed attempt."""
     body = {
         "event_id": event.event_id,
         "event_type": event.event_type,
